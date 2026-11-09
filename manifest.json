@@ -1,0 +1,1 @@
+{"name": "المصحف الشريف", "short_name": "المصحف", "lang": "ar", "dir": "rtl", "start_url": ".", "display": "standalone", "background_color": "#f6f0df", "theme_color": "#0d5c46", "icons": [{"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}, {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}]}

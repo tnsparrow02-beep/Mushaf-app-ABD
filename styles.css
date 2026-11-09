@@ -1,0 +1,298 @@
+@font-face{font-family:AmiriQuranL;src:local("Amiri Quran"),url(fonts/AmiriQuran-Regular.ttf) format("truetype");font-display:swap}
+@font-face{font-family:TajawalL;font-weight:400;src:url(fonts/Tajawal-Regular.ttf) format("truetype");font-display:swap}
+@font-face{font-family:TajawalL;font-weight:500;src:url(fonts/Tajawal-Medium.ttf) format("truetype");font-display:swap}
+@font-face{font-family:TajawalL;font-weight:700;src:url(fonts/Tajawal-Bold.ttf) format("truetype");font-display:swap}
+:root{--bg:#f6f0df;--card:#fffdf5;--ink:#1a2a22;--mute:#667061;--g:#0d5c46;--g2:#e2eddc;--gold:#b8892b;--line:#e4d9ba;--err:#b3261e;--hd1:#0d5c46;--hd2:#094333;--hdk:#f3e2b3;--fs:30px;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){--bg:#06130e;--card:#0e2118;--ink:#efe9d6;--mute:#a4b1a3;--g:#4fc29a;--g2:#143426;--gold:#d9b25f;--line:#23392d;--err:#ff8f80;--hd1:#0b2a1f;--hd2:#071a13;--hdk:#e8cf8b}}
+:root[data-theme="dark"]{--bg:#06130e;--card:#0e2118;--ink:#efe9d6;--mute:#a4b1a3;--g:#4fc29a;--g2:#143426;--gold:#d9b25f;--line:#23392d;--err:#ff8f80;--hd1:#0b2a1f;--hd2:#071a13;--hdk:#e8cf8b}
+html{scroll-padding-top:70px}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 TajawalL,Tajawal,system-ui,sans-serif}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--card);border-bottom:1px solid var(--line)}
+.bar{max-width:720px;margin:auto;display:flex;align-items:center;gap:8px;padding:10px 14px}
+h1{flex:1;margin:0;font:700 20px TajawalL,Tajawal,sans-serif;color:var(--g)}
+button{font:inherit;color:inherit;cursor:pointer}
+.ic{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--bg);font-size:20px;line-height:1}
+.ic:focus-visible,.chip:focus-visible,input:focus-visible,.row:focus-visible,.nv:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+main{max-width:720px;margin:auto;padding:14px}
+[hidden]{display:none!important}
+.hero{background:var(--g);color:#fff;border-radius:18px;padding:20px;margin-bottom:14px}
+.hero b{font:400 30px AmiriQuranL,'Amiri Quran',serif;display:block;line-height:1.8}
+.hero small{opacity:.85}
+.hero button{margin-top:10px;background:#fff;color:#14543a;border:0;border-radius:999px;padding:8px 18px;font-weight:700}
+input[type=search]{width:100%;padding:12px 16px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.chips{display:flex;gap:8px;margin:12px 0}
+.chip{padding:6px 16px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+.chip[aria-pressed=true]{background:var(--g);border-color:var(--g);color:#fff}
+ul{list-style:none;margin:0;padding:0}
+.row{display:flex;align-items:center;gap:14px;padding:12px 6px;border-bottom:1px solid var(--line);cursor:pointer}
+.row:hover{background:var(--g2)}
+.no{flex:none;width:42px;height:42px;display:grid;place-items:center;border:1.5px solid var(--gold);border-radius:12px;transform:rotate(45deg);}
+.no span{transform:rotate(-45deg);font-weight:700;font-size:14px}
+.nm{flex:1;font:700 20px AmiriQuranL,'Amiri Quran',serif}
+.mt{color:var(--mute);font-size:13px;text-align:left}
+.rh{text-align:center;padding:18px 0 6px}
+.rh h2{margin:0;font:400 38px AmiriQuranL,'Amiri Quran',serif;color:var(--g)}
+.rh p{margin:2px 0 0;color:var(--mute);font-size:14px}
+.tools{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px 0}
+audio{width:100%;margin:6px 0 10px}
+.bs{font:400 32px AmiriQuranL,'Amiri Quran',serif;text-align:center;margin:14px 0;color:var(--gold)}
+.txt{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px;font:400 var(--fs)/2.6 AmiriQuranL,'Amiri Quran',serif;text-align:justify}
+.n{display:inline-grid;place-items:center;min-width:1.5em;height:1.5em;margin:0 4px;border:1.5px solid var(--gold);border-radius:50%;font:700 .5em TajawalL,Tajawal,sans-serif;color:var(--gold);line-height:1;vertical-align:middle}
+.msg{text-align:center;color:var(--mute);font:16px/1.8 TajawalL,Tajawal,sans-serif;padding:10px}
+.pg{display:flex;justify-content:space-between;gap:10px;margin:14px 0 30px}
+.nv{flex:1;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--card);font-weight:500}
+.nv:disabled{opacity:.4}
+.rcw{display:flex;align-items:center;gap:10px;margin:8px 0}
+.rcw select,.sh-h select{padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.ay{cursor:pointer;border-radius:8px;padding:0 2px}
+.ay:hover,.ay.on{background:var(--g2)}
+.ay.sv{box-shadow:inset 0 -3px 0 var(--gold)}
+.ay:focus-visible,.rcw select:focus-visible,.sh-h select:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.sheet{position:fixed;inset:auto 0 0 0;max-width:720px;margin:auto;max-height:55vh;overflow:auto;background:var(--card);border-top:2px solid var(--gold);border-radius:18px 18px 0 0;padding:14px 16px calc(14px + env(safe-area-inset-bottom,0px));z-index:12;box-shadow:0 -8px 30px rgba(0,0,0,.18)}
+.sh-h{display:flex;align-items:center;gap:10px}
+.sh-h b{flex:1;color:var(--g)}
+.aytxt{font:400 24px/2.2 AmiriQuranL,'Amiri Quran',serif;margin:8px 0}
+.tfs{font:400 17px/2 TajawalL,Tajawal,sans-serif;margin:0 0 12px}
+.sh-b{display:flex;gap:8px}
+.so #read{padding-bottom:55vh}
+.lg{width:36px;height:36px;flex:none}
+.pb{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:8px 0}
+.pb label{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--mute)}
+.pb select{padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.ay.pl{background:var(--g2);box-shadow:inset 0 -3px 0 var(--g)}
+.hide .ay:not(.rv){filter:blur(9px)}
+.sh-b{flex-wrap:wrap}
+/* ===== header controls ===== */
+h1{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hfs{display:flex;gap:6px;margin-inline-start:auto}
+#fab{flex:none;border:0;border-radius:999px;padding:8px 14px;background:var(--g);color:#fff;font:700 13px TajawalL,Tajawal,sans-serif;white-space:nowrap;line-height:1.2}
+#fab:focus-visible,.duac:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.f-s{display:none}
+@media (max-width:480px){
+.bar{gap:6px;padding:8px 10px}
+.lg{display:none}
+.ic{width:36px;height:36px;font-size:18px}
+.f-l{display:none}.f-s{display:inline}
+.rd .hfs{margin-inline-start:auto}
+}
+/* ===== reader controls ===== */
+.rcw select{flex:1;min-width:0;width:100%}
+.pb{display:flex;flex-wrap:wrap;gap:8px}
+.pb .chip{flex:1 1 0;min-width:0;white-space:nowrap;text-align:center}
+.pb .opt{flex:1 1 calc(50% - 4px);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:6px 14px;border:1px solid var(--line);border-radius:999px;background:var(--card);white-space:nowrap;color:var(--ink);font-size:14px;cursor:pointer}
+.pb .opt select{padding:4px 8px}
+.sw{-webkit-appearance:none;appearance:none;flex:none;width:40px;height:22px;margin:0;border:0;border-radius:999px;background:var(--line);position:relative;cursor:pointer}
+.sw::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:inset-inline-start .15s}
+.sw:checked{background:var(--g)}
+.sw:checked::after{inset-inline-start:21px}
+.sw:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+/* ===== duas ===== */
+.duac{display:block;width:100%;text-align:start;background:var(--card);border:1.5px solid var(--gold);border-radius:18px;padding:14px 18px;margin-bottom:14px}
+.duac small{color:var(--gold);font-weight:700}
+.duac p{margin:4px 0 0;font:400 22px/2.1 AmiriQuranL,'Amiri Quran',serif;white-space:pre-wrap;overflow-wrap:anywhere}
+.ov{position:fixed;inset:0;z-index:20;background:rgba(0,0,0,.5);display:flex;align-items:flex-end;justify-content:center}
+.dbox{width:100%;max-width:720px;max-height:90vh;overflow:auto;background:var(--card);border-top:2px solid var(--gold);border-radius:18px 18px 0 0;padding:14px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.dlb{display:block;margin:12px 0 6px;font-weight:700;color:var(--g)}
+#dt{width:100%;min-height:110px;resize:vertical;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:400 20px/2 AmiriQuranL,'Amiri Quran',TajawalL,Tajawal,serif}
+#dt[aria-invalid=true]{border-color:var(--err)}
+#dt:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.dm{display:flex;justify-content:space-between;gap:10px;margin:4px 0 10px;font-size:13px;color:var(--mute)}
+.er{color:var(--err);font-weight:700}
+.dc{border:1px solid var(--line);border-radius:14px;padding:10px 14px;margin-top:10px;background:var(--bg)}
+.dc.pn{border-color:var(--gold)}
+.dc p{margin:0 0 8px;font:400 21px/2.1 AmiriQuranL,'Amiri Quran',serif;white-space:pre-wrap;overflow-wrap:anywhere}
+.da{display:flex;flex-wrap:wrap;gap:6px}
+.chip.sm{padding:3px 12px;font-size:13px}
+.chip.dg{border-color:var(--err);color:var(--err)}
+.dh{margin:16px 0 0;font-weight:700;color:var(--mute);font-size:14px}
+.tabs{display:flex;gap:6px;background:var(--g2);border-radius:14px;padding:4px;margin-bottom:12px}
+.tab{flex:1;padding:8px;border:0;border-radius:10px;background:transparent;font-weight:700;color:var(--mute)}
+.tab[aria-selected=true]{background:var(--card);color:var(--g)}
+.tab:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.hz{display:block;text-align:center;font:700 13px TajawalL,Tajawal,sans-serif;color:var(--gold);margin:6px 0 0}
+.ay{scroll-margin-top:90px}
+
+/* ===== v2 ===== */
+.sh-b .nv{flex:1 1 40%}
+.nb{margin:0 0 10px}
+.nb textarea{width:100%;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:400 16px/1.7 TajawalL,Tajawal,sans-serif;resize:vertical}
+.nb textarea:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.ay.fv .n{background:var(--gold);color:var(--card)}
+.ay.hn::before{content:"✎";font:.5em TajawalL,Tajawal,sans-serif;color:var(--gold);margin-inline-end:2px}
+.dnb{display:block;width:100%;margin:14px 0 0}
+.dnb.ok{background:var(--g2);color:var(--g);border-color:var(--g)}
+.row.dn .no{background:var(--g);border-color:var(--g)}
+.row.dn .no span{color:#fff}
+.nm.sx{font:400 19px/1.9 AmiriQuranL,'Amiri Quran',serif}
+.nm small{display:block;font:500 13px TajawalL,Tajawal,sans-serif;color:var(--mute)}
+#qs{display:block;width:100%;margin:0 0 10px;color:var(--g);border-color:var(--g)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;margin-bottom:14px}
+.card h3{margin:0 0 8px;font-size:17px;color:var(--g)}
+.card p{margin:6px 0;color:var(--mute);font-size:14px}
+.pbar{height:10px;border-radius:999px;background:var(--g2);overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--g);border-radius:999px}
+.card .nv{margin-top:8px;width:100%}
+.card textarea{width:100%;min-height:70px;padding:8px 12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:13px/1.5 monospace;direction:ltr}
+.nv.dg{border-color:var(--err);color:var(--err)}
+.stat{display:flex;gap:10px;margin-top:8px}
+.stat div{flex:1;text-align:center;background:var(--bg);border-radius:12px;padding:8px 4px;font-size:12px;color:var(--mute)}
+.stat b{display:block;font-size:20px;color:var(--gold)}
+.pb .opt{padding:6px 12px;gap:6px;font-size:13px}
+.pb .opt select{min-width:0;max-width:96px}
+
+/* ===== v3: icons, page reader, settings ===== */
+:root[data-theme="sepia"]{--hd1:#7b5a22;--hd2:#5f4418;--hdk:#f6e7c4;--bg:#efe4c8;--card:#f8efd9;--ink:#3b2f1e;--mute:#76664b;--g:#7b5a22;--g2:#eadcb9;--gold:#a8732a;--line:#dccfaa;--err:#a3261e}
+:root[data-theme="black"]{--hd1:#000;--hd2:#000;--hdk:#e8cf8b;--bg:#000;--card:#0b0b0b;--ink:#e6e6e6;--mute:#999;--g:#5fbf8f;--g2:#15221b;--gold:#d4ad5a;--line:#222;--err:#ff8f80}
+:root{--lh:2.4}
+.i{width:1.2em;height:1.2em;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.22em}
+.ic{display:inline-grid;place-items:center;padding:0;flex:none}
+.ic .i{width:21px;height:21px}
+.ic.ok{background:var(--g);border-color:var(--g);color:#fff}
+.ic:disabled{opacity:.35}
+.nv,.chip,#fab{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+.nv .i,.chip .i,#fab .i{width:1.15em;height:1.15em}
+.duac small{display:inline-flex;align-items:center;gap:5px}
+.sh-h b{display:flex;align-items:center;gap:6px}
+.lg,.rd .lg{display:none}
+.f-s{display:none}.f-l{display:inline}
+.rd #fab,.rd #dua,.hmo{display:none}
+body:not(.rd) .hmo{display:inline-grid}
+.rd .rdo{display:inline-grid}
+.rdo{display:none}
+.rd h1{display:block}
+h1{font-size:19px}
+.rd h1{font-family:AmiriQuranL,'Amiri Quran',TajawalL,Tajawal,serif;font-weight:400;font-size:24px}
+
+/* reader: full screen, page by page */
+body.rd{height:calc(100vh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));overflow:hidden;display:flex;flex-direction:column}
+body.rd header{position:static;flex:none}
+body.rd .bar{width:100%;padding:6px 10px}
+#read{width:100%;max-width:760px;margin:0 auto;padding:8px 10px 6px}
+body.rd #read{flex:1;min-height:0;display:flex;flex-direction:column}
+#pgv{flex:1;min-height:0;position:relative;overflow:hidden;padding:14px 0;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:inset 0 0 0 4px var(--card),inset 0 0 0 5px var(--gold);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+#tx{position:relative;column-fill:auto;font:400 var(--fs)/var(--lh) AmiriQuranL,'Amiri Quran',serif;text-align:justify;overflow-wrap:anywhere}
+#tx .msg{column-span:all}
+.stt{break-inside:avoid;text-align:center;border:1.5px solid var(--gold);border-radius:14px;padding:4px 10px 6px;margin:0 0 .35em;color:var(--g);font-size:1.05em;line-height:1.7;background:var(--g2)}
+.stt small{display:block;font:500 13px/1.4 TajawalL,Tajawal,sans-serif;color:var(--mute)}
+.bsm{break-inside:avoid;text-align:center;color:var(--gold);margin:.1em 0 .2em;line-height:1.9}
+.sdq{break-inside:avoid;text-align:center;color:var(--mute);font-size:.8em;margin-top:.6em}
+.hz{break-after:avoid}
+#pend{display:inline-block;width:0;height:1px}
+.ay{padding:0 1px}
+.ay.hn::before{content:"";display:inline-block;width:.3em;height:.3em;margin-inline-end:3px;border-radius:50%;background:var(--gold);vertical-align:middle}
+body.nonum .n{display:none}
+.rbar{flex:none;display:flex;align-items:center;gap:4px;padding:8px 0 2px}
+.rmid{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;gap:2px}
+.rmid span{font-size:13px;color:var(--mute);line-height:1.2}
+#pgr{width:100%;margin:0;accent-color:var(--g);height:22px}
+.sheet{max-height:52vh}
+
+/* panels */
+.ov.clear{background:transparent;pointer-events:none}
+.ov.clear .dbox{pointer-events:auto;box-shadow:0 -8px 30px rgba(0,0,0,.25)}
+.sbox{max-height:50vh}
+.themes{display:flex;gap:6px;margin-bottom:6px}
+.th{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 2px;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);font-size:13px}
+.th i{display:block;width:26px;height:26px;border-radius:50%;border:1px solid var(--line)}
+.th[aria-pressed=true]{border-color:var(--g);color:var(--g);font-weight:700}
+.srow{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.srow>span{flex:none;min-width:7.5em}
+.srow input[type=range]{flex:1;min-width:0;accent-color:var(--g)}
+.srow output{flex:none;min-width:3em;text-align:end;color:var(--mute);font-size:13px}
+.srow .sw{margin-inline-start:auto}
+#srs{width:100%;margin-top:12px}
+#dim,#warm{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:0}
+#dim{background:#000}
+#warm{background:#ff9a1f}
+@media (prefers-reduced-motion:reduce){#tx{transition:none!important}}
+
+/* ===== v4: Islamic design ===== */
+body{background-color:var(--bg);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23b8892b' stroke-opacity='.17' stroke-width='1'%3E%3Crect x='16' y='16' width='32' height='32'/%3E%3Crect x='16' y='16' width='32' height='32' transform='rotate(45 32 32)'/%3E%3Ccircle cx='32' cy='32' r='4'/%3E%3C/g%3E%3Cg fill='%23b8892b' fill-opacity='.14'%3E%3Ccircle r='2'/%3E%3Ccircle cx='64' r='2'/%3E%3Ccircle cy='64' r='2'/%3E%3Ccircle cx='64' cy='64' r='2'/%3E%3C/g%3E%3C/svg%3E")}
+body::before{background:var(--hd1)}
+header{background:linear-gradient(180deg,var(--hd1),var(--hd2));border-bottom:0;box-shadow:0 2px 0 var(--gold),0 6px 14px rgba(0,0,0,.18);color:var(--hdk)}
+h1{color:var(--hdk);font-family:AmiriQuranL,'Amiri Quran',serif;font-weight:400;font-size:24px}
+.rd h1{color:var(--hdk)}
+header .ic,header #fab{background:rgba(255,255,255,.08);border:1px solid rgba(243,226,179,.45);color:var(--hdk)}
+header .ic.ok{background:var(--gold);border-color:var(--gold);color:#102a20}
+header #fab{background:var(--gold);color:#102a20;border-color:var(--gold)}
+.lg{display:none}
+.hero{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--hd1),var(--hd2));border:1.5px solid var(--gold);color:var(--hdk)}
+.hero::after{content:"";position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23f3e2b3' stroke-opacity='.17' stroke-width='1'%3E%3Crect x='16' y='16' width='32' height='32'/%3E%3Crect x='16' y='16' width='32' height='32' transform='rotate(45 32 32)'/%3E%3Ccircle cx='32' cy='32' r='4'/%3E%3C/g%3E%3Cg fill='%23f3e2b3' fill-opacity='.14'%3E%3Ccircle r='2'/%3E%3Ccircle cx='64' r='2'/%3E%3Ccircle cy='64' r='2'/%3E%3Ccircle cx='64' cy='64' r='2'/%3E%3C/g%3E%3C/svg%3E");opacity:.55;pointer-events:none}
+.hero>*{position:relative;z-index:1}
+.hero b{color:#fff}
+.hero button{background:var(--gold);color:#102a20}
+.tabs{background:var(--g2);border:1px solid var(--line)}
+.tab{font-size:14px;padding:8px 2px;position:relative}
+.tab[aria-selected=true]{background:var(--hd1);color:var(--hdk)}
+.bdg{display:inline-block;min-width:18px;padding:0 5px;margin-inline-start:4px;border-radius:999px;background:var(--gold);color:#102a20;font:700 11px/18px Tajawal,sans-serif;font-style:normal}
+.bdg:empty{display:none}
+.no{border:0;border-radius:0;transform:none;position:relative;width:46px;height:46px;background:var(--gold);clip-path:polygon(50% 0,61% 20%,85% 15%,80% 39%,100% 50%,80% 61%,85% 85%,61% 80%,50% 100%,39% 80%,15% 85%,20% 61%,0 50%,20% 39%,15% 15%,39% 20%)}
+.no::before{content:"";position:absolute;inset:2px;background:var(--card);clip-path:polygon(50% 0,61% 20%,85% 15%,80% 39%,100% 50%,80% 61%,85% 85%,61% 80%,50% 100%,39% 80%,15% 85%,20% 61%,0 50%,20% 39%,15% 15%,39% 20%)}
+.no span{position:relative;transform:none;font-size:14px}
+.row:hover .no::before{background:var(--g2)}
+.row.dn .no{background:var(--g)}
+.row.dn .no::before{background:var(--g)}
+.row.dn .no span{color:#fff}
+.row{border-bottom:1px solid var(--line)}
+.nm{color:var(--ink)}
+.card,.duac,.txt{border-color:var(--line);box-shadow:0 1px 0 var(--line)}
+.card h3{font-family:AmiriQuranL,'Amiri Quran',serif;font-weight:400;font-size:21px;color:var(--g);display:flex;align-items:center;gap:8px}
+.card h3::before{content:"";width:16px;height:16px;background:var(--gold);clip-path:polygon(50% 0,61% 20%,85% 15%,80% 39%,100% 50%,80% 61%,85% 85%,61% 80%,50% 100%,39% 80%,15% 85%,20% 61%,0 50%,20% 39%,15% 15%,39% 20%)}
+#pgv{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23b8892b' stroke-opacity='.17' stroke-width='1'%3E%3Crect x='16' y='16' width='32' height='32'/%3E%3Crect x='16' y='16' width='32' height='32' transform='rotate(45 32 32)'/%3E%3Ccircle cx='32' cy='32' r='4'/%3E%3C/g%3E%3Cg fill='%23b8892b' fill-opacity='.14'%3E%3Ccircle r='2'/%3E%3Ccircle cx='64' r='2'/%3E%3Ccircle cy='64' r='2'/%3E%3Ccircle cx='64' cy='64' r='2'/%3E%3C/g%3E%3C/svg%3E");background-color:var(--card);border-radius:18px;border:1.5px solid var(--gold);box-shadow:inset 0 0 0 5px var(--card),inset 0 0 0 6.5px var(--gold),0 4px 16px rgba(0,0,0,.12)}
+.stt{background:linear-gradient(135deg,var(--hd1),var(--hd2));border:1.5px solid var(--gold);color:var(--hdk);padding:2px 10px 6px;border-radius:12px}
+.stt .sn{display:flex;align-items:center;justify-content:center;gap:10px;font-weight:400}
+.stt .sn::before,.stt .sn::after{content:"";width:14px;height:14px;background:var(--gold);clip-path:polygon(50% 0,61% 20%,85% 15%,80% 39%,100% 50%,80% 61%,85% 85%,61% 80%,50% 100%,39% 80%,15% 85%,20% 61%,0 50%,20% 39%,15% 15%,39% 20%)}
+.stt small{color:#e6d7aa}
+.bsm{color:var(--gold)}
+.n{box-shadow:inset 0 0 0 2px var(--card),inset 0 0 0 3px var(--gold);border-color:transparent;min-width:1.6em;height:1.6em}
+.ay.mm .n{background:var(--g);color:#fff;box-shadow:inset 0 0 0 2px var(--card),inset 0 0 0 3px var(--g)}
+.ay.fv .n{background:var(--gold);color:var(--card)}
+.rbar .ic{background:var(--card);border-color:var(--gold);color:var(--g)}
+.sheet,.dbox{border-top-color:var(--gold)}
+.chip[aria-pressed=true]{background:var(--hd1);border-color:var(--hd1);color:var(--hdk)}
+.pbar{background:var(--g2);border:1px solid var(--line)}
+.pbar i{background:linear-gradient(90deg,var(--g),var(--gold))}
+/* hifdh */
+.hst{display:flex;gap:8px;margin:8px 0}
+.hst div{flex:1;text-align:center;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:8px 2px;font-size:12px;color:var(--mute)}
+.hst b{display:block;font-size:22px;color:var(--gold);line-height:1.3}
+.hrow{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:14px}
+.hrow>span{flex:1}
+.hrow select{padding:6px 10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.big{width:100%;margin-top:8px;padding:14px;font-size:17px;font-weight:700;background:var(--hd1);color:var(--hdk);border-color:var(--gold)}
+.big:disabled{opacity:.45}
+.sub{font-size:13px;color:var(--mute);margin:4px 0}
+.mini{height:6px;margin-top:4px}
+/* review */
+.rbox{max-height:94vh;min-height:60vh}
+.rvc{font:400 24px/2.2 AmiriQuranL,'Amiri Quran',serif;text-align:center;margin:6px 0}
+.rvc.ctx{color:var(--mute);font-size:20px}
+.rvh{margin:10px 0;padding:18px 14px;text-align:center;border:1.5px dashed var(--gold);border-radius:16px;font:400 28px/2.2 AmiriQuranL,'Amiri Quran',serif;background:var(--bg);min-height:120px}
+.rvh.hid{color:var(--mute);font:500 16px/1.8 TajawalL,Tajawal,sans-serif;display:grid;place-items:center}
+.rvr{font-size:13px;color:var(--mute);text-align:center}
+.rva{display:flex;gap:8px;margin-top:10px}
+.rva .nv{flex:1;padding:12px}
+.nv.okb{background:var(--g);border-color:var(--g);color:#fff}
+.nv.dg2{border-color:var(--err);color:var(--err)}
+
+/* ===== v5: prayer times, audio modes ===== */
+.pcard{display:flex;align-items:center;gap:10px;width:100%;margin:0 0 10px;padding:10px 14px;border:1.5px solid var(--gold);border-radius:14px;background:var(--card);color:var(--ink);font:inherit;text-align:start}
+.pcard .i{color:var(--gold);width:22px;height:22px}
+.pcn{flex:1;font-size:15px}
+.pct{color:var(--g);font-size:17px}
+.ptl{list-style:none;margin:8px 0;padding:0}
+.prow{display:flex;align-items:center;gap:10px;padding:9px 6px;border-bottom:1px solid var(--line);font-size:17px}
+.prow .pn{flex:1}
+.prow b{font-weight:700;color:var(--g);min-width:3.4em;text-align:end;letter-spacing:.5px}
+.prow.nx{background:var(--g2);border-radius:10px;border-bottom-color:transparent}
+.prow .sw{margin:0}
+.prow.sr .pn,.prow.sr b{color:var(--mute);font-weight:400}
+.pnx{text-align:center;font-size:16px;color:var(--mute);margin:4px 0}
+.pnx b{color:var(--gold);font-size:19px}
+.amd{display:flex;gap:6px;background:var(--g2);border:1px solid var(--line);border-radius:14px;padding:4px;margin-bottom:8px}
+.amd button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:9px;border:0;border-radius:10px;background:transparent;color:var(--ink);font:inherit;font-weight:500}
+.amd button[aria-pressed=true]{background:var(--hd1);color:var(--hdk)}
+.pb .chip{flex:1 1 auto;min-width:max-content;padding:8px 12px}

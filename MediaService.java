@@ -1,0 +1,286 @@
+package __PKG__;
+
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Intent;
+import android.content.pm.ServiceInfo;
+import android.media.AudioAttributes;
+import android.media.MediaMetadata;
+import android.media.MediaPlayer;
+import android.media.PlaybackParams;
+import android.os.PowerManager;
+import java.util.Locale;
+import android.media.session.MediaSession;
+import android.media.session.PlaybackState;
+import android.os.Build;
+import android.os.IBinder;
+
+public class MediaService extends Service {
+    static final String CH = "mushaf_media";
+    static final int ID = 4711;
+    private MediaSession session;
+    private String title = "";
+    private String text = "";
+    private boolean playing = false;
+    static MediaService inst;
+    private MediaPlayer mp;
+    private boolean nat = false;
+    private String base = "";
+    private int sn = 1;
+    private float rate = 1f;
+    private String[] names = new String[0];
+    private String rec = "";
+
+    private void relMp() {
+        if (mp != null) {
+            try { mp.release(); } catch (Exception e) { }
+            mp = null;
+        }
+    }
+
+    void startNat(String b, int n, int pos, float r, String[] nm, String rc) {
+        base = b; rate = r <= 0 ? 1f : r; names = nm == null ? new String[0] : nm; rec = rc == null ? "" : rc;
+        nat = true;
+        playN(n, pos);
+    }
+
+    private boolean ay = false;
+    private String[] urls = new String[0];
+    private int ai = 1, rp = 1, rdone = 0, lf = 1, lt = 1;
+    private boolean loop = false;
+    private String stitle = "";
+
+    void startAy(String[] u, int i, int r, boolean lp, int f, int t, float rt, String st, String rc) {
+        urls = u == null ? new String[0] : u; rp = Math.max(1, r); loop = lp; lf = f; lt = t;
+        rate = rt <= 0 ? 1f : rt; stitle = st == null ? "" : st; rec = rc == null ? "" : rc;
+        nat = true; ay = true;
+        playA(i, false);
+    }
+
+    private void playA(int i, boolean again) {
+        if (i < 1 || i > urls.length) { playing = false; show(); return; }
+        ai = i;
+        if (!again) rdone = 0;
+        title = stitle + " — الآية " + i;
+        text = rec + " · حفظ" + (rp > 1 ? " · تكرار " + (rdone + 1) + "/" + rp : "");
+        playUrl(urls[i - 1], 0);
+    }
+
+    private void playN(final int n, final int pos) {
+        sn = n;
+        ay = false;
+        title = "سورة " + (n >= 1 && n <= names.length ? names[n - 1] : String.valueOf(n));
+        text = rec + " · استماع";
+        playUrl(base + String.format(Locale.US, "%03d.mp3", n), pos);
+    }
+
+    private void onEnd() {
+        if (!ay) {
+            if (sn < 114) playN(sn + 1, 0);
+            else { playing = false; show(); }
+            return;
+        }
+        rdone++;
+        if (rdone < rp) { playA(ai, true); return; }
+        int to = loop ? lt : urls.length;
+        if (ai < to) playA(ai + 1, false);
+        else if (loop) playA(lf, false);
+        else { playing = false; show(); }
+    }
+
+    private void playUrl(String url, final int pos) {
+        relMp();
+        playing = true;
+        show();
+        try {
+            mp = new MediaPlayer();
+            mp.setAudioAttributes(new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .setUsage(AudioAttributes.USAGE_MEDIA).build());
+            mp.setWakeMode(this, PowerManager.PARTIAL_WAKE_LOCK);
+            mp.setDataSource(url);
+            mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override public void onPrepared(MediaPlayer m) {
+                    if (pos > 0) m.seekTo(pos);
+                    try {
+                        if (Build.VERSION.SDK_INT >= 23) m.setPlaybackParams(new PlaybackParams().setSpeed(rate));
+                    } catch (Exception e) { }
+                    m.start();
+                    playing = true;
+                    show();
+                }
+            });
+            mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override public void onCompletion(MediaPlayer m) { onEnd(); }
+            });
+            mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                @Override public boolean onError(MediaPlayer m, int w, int e) {
+                    playing = false; show(); return true;
+                }
+            });
+            mp.prepareAsync();
+        } catch (Exception e) {
+            playing = false;
+            show();
+        }
+    }
+
+    /** returns {surah, positionMs, playing} and releases the native player */
+    int[] takeBack() {
+        int[] r = new int[]{ay ? ai : sn, 0, 0, ay ? 1 : 0};
+        if (mp != null) {
+            try { r[1] = mp.getCurrentPosition(); r[2] = mp.isPlaying() ? 1 : 0; } catch (Exception e) { }
+        }
+        nat = false;
+        relMp();
+        return r;
+    }
+
+    private void doAct(String act) {
+        if (!nat) {
+            MediaCtlPlugin.emit(act);
+            if ("stop".equals(act)) { stopForeground(true); stopSelf(); }
+            return;
+        }
+        try {
+            if ("pause".equals(act)) { if (mp != null && mp.isPlaying()) mp.pause(); playing = false; show(); }
+            else if ("play".equals(act)) { if (mp != null) mp.start(); playing = true; show(); }
+            else if ("next".equals(act)) { if (ay) { if (ai < urls.length) playA(ai + 1, false); } else if (sn < 114) playN(sn + 1, 0); }
+            else if ("prev".equals(act)) { if (ay) { if (ai > 1) playA(ai - 1, false); } else if (sn > 1) playN(sn - 1, 0); }
+            else if ("stop".equals(act)) { nat = false; relMp(); playing = false; stopForeground(true); stopSelf(); }
+        } catch (Exception e) { }
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        inst = this;
+        if (Build.VERSION.SDK_INT >= 26) {
+            NotificationChannel c = new NotificationChannel(CH, "التشغيل الصوتي", NotificationManager.IMPORTANCE_LOW);
+            c.setShowBadge(false);
+            ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).createNotificationChannel(c);
+        }
+        session = new MediaSession(this, "MushafMedia");
+        session.setCallback(new MediaSession.Callback() {
+            @Override public void onPlay() { doAct("play"); }
+            @Override public void onPause() { doAct("pause"); }
+            @Override public void onSkipToNext() { doAct("next"); }
+            @Override public void onSkipToPrevious() { doAct("prev"); }
+            @Override public void onStop() { doAct("stop"); }
+        });
+        session.setActive(true);
+    }
+
+    @Override
+    public int onStartCommand(Intent in, int flags, int startId) {
+        String a = in == null ? null : in.getAction();
+        if (a != null && a.startsWith("act:")) {
+            String act = a.substring(4);
+            doAct(act);
+            return START_NOT_STICKY;
+        }
+        if (in != null && in.hasExtra("urls")) {
+            startAy(in.getStringArrayExtra("urls"), in.getIntExtra("ai", 1), in.getIntExtra("rp", 1),
+                    in.getBooleanExtra("loop", false), in.getIntExtra("lf", 1), in.getIntExtra("lt", 1),
+                    in.getFloatExtra("rate", 1f), in.getStringExtra("stitle"), in.getStringExtra("rec"));
+            return START_NOT_STICKY;
+        }
+        if (in != null && in.hasExtra("base")) {
+            startNat(in.getStringExtra("base"), in.getIntExtra("n", 1), in.getIntExtra("pos", 0),
+                    in.getFloatExtra("rate", 1f), in.getStringArrayExtra("names"), in.getStringExtra("rec"));
+            return START_NOT_STICKY;
+        }
+        if (nat) { show(); return START_NOT_STICKY; }
+        if (in != null) {
+            String t = in.getStringExtra("title");
+            String x = in.getStringExtra("text");
+            title = t == null ? "" : t;
+            text = x == null ? "" : x;
+            playing = in.getBooleanExtra("playing", false);
+        }
+        show();
+        return START_NOT_STICKY;
+    }
+
+    private long safePos() {
+        try { return mp.getCurrentPosition(); } catch (Exception e) { return PlaybackState.PLAYBACK_POSITION_UNKNOWN; }
+    }
+
+    private Notification.Action act(int icon, String label, String a, int code) {
+        Intent i = new Intent(this, MediaService.class).setAction("act:" + a);
+        PendingIntent pi = PendingIntent.getService(this, code, i,
+                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
+        return new Notification.Action.Builder(icon, label, pi).build();
+    }
+
+    private void show() {
+        long actions = PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE | PlaybackState.ACTION_PLAY_PAUSE
+                | PlaybackState.ACTION_SKIP_TO_NEXT | PlaybackState.ACTION_SKIP_TO_PREVIOUS | PlaybackState.ACTION_STOP;
+        session.setPlaybackState(new PlaybackState.Builder()
+                .setActions(actions)
+                .setState(playing ? PlaybackState.STATE_PLAYING : PlaybackState.STATE_PAUSED,
+                        nat && mp != null ? safePos() : PlaybackState.PLAYBACK_POSITION_UNKNOWN, nat ? rate : 1f)
+                .build());
+        session.setMetadata(new MediaMetadata.Builder()
+                .putString(MediaMetadata.METADATA_KEY_TITLE, title)
+                .putString(MediaMetadata.METADATA_KEY_ARTIST, text)
+                .build());
+
+        Notification.Builder b = Build.VERSION.SDK_INT >= 26
+                ? new Notification.Builder(this, CH) : new Notification.Builder(this);
+        b.setSmallIcon(R.drawable.ic_stat_mushaf)
+                .setContentTitle(title)
+                .setContentText(text)
+                .setOnlyAlertOnce(true)
+                .setShowWhen(false)
+                .setOngoing(playing)
+                .setVisibility(Notification.VISIBILITY_PUBLIC);
+        Intent launch = getPackageManager().getLaunchIntentForPackage(getPackageName());
+        if (launch != null) {
+            b.setContentIntent(PendingIntent.getActivity(this, 0, launch,
+                    PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT));
+        }
+        b.addAction(act(android.R.drawable.ic_media_previous, "السابق", "prev", 1));
+        if (playing) {
+            b.addAction(act(android.R.drawable.ic_media_pause, "إيقاف مؤقت", "pause", 2));
+        } else {
+            b.addAction(act(android.R.drawable.ic_media_play, "تشغيل", "play", 2));
+        }
+        b.addAction(act(android.R.drawable.ic_media_next, "التالي", "next", 3));
+        b.addAction(act(android.R.drawable.ic_menu_close_clear_cancel, "إغلاق", "stop", 4));
+        b.setStyle(new Notification.MediaStyle()
+                .setMediaSession(session.getSessionToken())
+                .setShowActionsInCompactView(0, 1, 2));
+        Notification n = b.build();
+        if (Build.VERSION.SDK_INT >= 29) {
+            startForeground(ID, n, ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK);
+        } else {
+            startForeground(ID, n);
+        }
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        stopForeground(true);
+        stopSelf();
+        super.onTaskRemoved(rootIntent);
+    }
+
+    @Override
+    public void onDestroy() {
+        inst = null;
+        relMp();
+        if (session != null) {
+            session.release();
+        }
+        super.onDestroy();
+    }
+}

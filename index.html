@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>المصحف الشريف</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0d5c46"></head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<defs>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+<symbol id="i-cr" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-cl" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol>
+<symbol id="i-ccr" viewBox="0 0 24 24"><path d="M7 6l6 6-6 6M13 6l6 6-6 6"/></symbol>
+<symbol id="i-ccl" viewBox="0 0 24 24"><path d="M17 6l-6 6 6 6M11 6l-6 6 6 6"/></symbol>
+<symbol id="i-headphones" viewBox="0 0 24 24"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1.5"/><rect x="17" y="14" width="4" height="6" rx="1.5"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 6h9M19 6h1M4 12h3M13 12h7M4 18h11M21 18h-1"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l3 3 5-6"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></symbol>
+<symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M7 4h10v16l-5-4-5 4z"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14" stroke-width="3.5"/></symbol>
+<symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></symbol>
+<symbol id="i-star-f" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" fill="currentColor"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 10.8l7.6-3.6M8.2 13.2l7.6 3.6"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+<symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l4-1 11-11-3-3L5 16z"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6l1.4 1.4M17 17l1.4 1.4M5.6 18.4L7 17M17 7l1.4-1.4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20.5a2 2 0 0 0 4 0"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.400-6.500 11-6.500 11z"/><circle cx="12" cy="10" r="2.300"/></symbol>
+</defs>
+</svg>
+
+<header><div class="bar">
+<button class="ic" id="back" aria-label="رجوع إلى الفهرس" title="رجوع" hidden><svg class="i"><use href="#i-back"/></svg></button>
+<svg class="lg" viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="var(--g)"/><path d="M24 17c-3-2-7-3-12-3v20c5 0 9 1 12 3 3-2 7-3 12-3V14c-5 0-9 1-12 3z" fill="#fff"/><path d="M24 17v20" stroke="var(--g)" stroke-width="1.6"/><path d="M24 4l1.8 3.6 4 .6-2.9 2.8.7 4L24 13.100l-3.600 1.900.7-4-2.900-2.800 4-.6z" fill="var(--gold)"/></svg>
+<h1 id="ttl">المصحف الشريف</h1>
+<button id="fab" hidden aria-label="تابع من مكاني"><svg class="i"><use href="#i-bookmark"/></svg><span>تابع من مكاني</span></button>
+<button class="ic rdo" id="abtn" aria-label="التلاوة" title="التلاوة"><svg class="i"><use href="#i-headphones"/></svg></button>
+<button class="ic rdo" id="dn" aria-label="أتممت قراءة هذه السورة" title="أتممت قراءة هذه السورة"><svg class="i"><use href="#i-check"/></svg></button>
+<button class="ic hmo" id="dua" aria-label="أدعيتي" title="أدعيتي"><svg class="i"><use href="#i-heart"/></svg></button>
+<button class="ic" id="sbtn" aria-label="الإعدادات" title="الإعدادات"><svg class="i"><use href="#i-sliders"/></svg></button>
+</div></header>
+
+<main id="home">
+<div class="hero" id="hero" hidden><small>تابع من حيث توقفت</small><b id="hn"></b><button id="hb">أكمل القراءة</button></div>
+<button class="duac" id="pd" hidden aria-label="فتح أدعيتي"><small><svg class="i"><use href="#i-heart"/></svg> دعائي</small><p id="pdt"></p></button>
+<button class="pcard" id="pcard" aria-label="مواقيت الصلاة"><svg class="i"><use href="#i-clock"/></svg><span class="pcn" id="pcn"></span><b class="pct" id="pct"></b></button>
+<div class="tabs" id="tabs" role="tablist"><button class="tab" data-t="0" role="tab" aria-selected="true">السور</button><button class="tab" data-t="1" role="tab" aria-selected="false">الأجزاء</button><button class="tab" data-t="2" role="tab" aria-selected="false">الأحزاب</button><button class="tab" data-t="4" role="tab" aria-selected="false">الحفظ<i class="bdg" id="bdg"></i></button><button class="tab" data-t="3" role="tab" aria-selected="false">مكتبتي</button></div>
+<input type="search" id="q" placeholder="ابحث باسم السورة أو رقمها" aria-label="بحث">
+<div class="chips" id="chips">
+<button class="chip" data-f="" aria-pressed="true">الكل</button>
+<button class="chip" data-f="m" aria-pressed="false">مكية</button>
+<button class="chip" data-f="d" aria-pressed="false">مدنية</button>
+</div>
+<button class="nv" id="qs" hidden></button>
+<ul id="list"></ul>
+<section id="lib" hidden></section>
+<p class="msg" id="empty" hidden>لا توجد سورة بهذا الاسم. جرّب كتابة جزء آخر من الاسم.</p>
+</main>
+
+<main id="read" hidden>
+<div id="pgv"><div id="tx"></div></div>
+<div class="rbar">
+<button class="ic" id="pv" aria-label="السورة السابقة" title="السورة السابقة"><svg class="i"><use href="#i-ccr"/></svg></button>
+<button class="ic" id="pgp" aria-label="الصفحة السابقة" title="الصفحة السابقة"><svg class="i"><use href="#i-cr"/></svg></button>
+<div class="rmid"><span id="pgl"></span><input type="range" id="pgr" min="1" max="1" value="1" aria-label="الانتقال إلى صفحة"></div>
+<button class="ic" id="pgn" aria-label="الصفحة التالية" title="الصفحة التالية"><svg class="i"><use href="#i-cl"/></svg></button>
+<button class="ic" id="nx" aria-label="السورة التالية" title="السورة التالية"><svg class="i"><use href="#i-ccl"/></svg></button>
+</div>
+</main>
+
+<div class="sheet" id="audp" role="dialog" aria-label="التلاوة" hidden>
+<div class="sh-h"><b>التلاوة</b><button class="ic" id="ax" aria-label="إغلاق"><svg class="i"><use href="#i-x"/></svg></button></div>
+<div class="amd" id="amd" role="group" aria-label="نوع المشغّل"><button data-m="l" aria-pressed="true"><svg class="i"><use href="#i-headphones"/></svg><span>استماع</span></button><button data-m="h" aria-pressed="false"><svg class="i"><use href="#i-check"/></svg><span>حفظ</span></button></div>
+<div class="rcw"><label for="rc">القارئ</label><select id="rc"><optgroup label="تلاوة كاملة للسورة"><option value="afs">مشاري العفاسي</option><option value="sds">عبد الرحمن السديس</option><option value="maher">ماهر المعيقلي</option><option value="shur">سعود الشريم</option><option value="basit">عبد الباسط عبد الصمد (مرتّل)</option><option value="husr">محمود خليل الحصري</option><option value="minsh">محمد صديق المنشاوي</option><option value="yasser">ياسر الدوسري</option><option value="gmd">سعد الغامدي</option><option value="qtm">ناصر القطامي</option><option value="ajm">أحمد العجمي</option><option value="hthfi">علي الحذيفي</option><option value="shatri">أبو بكر الشاطري</option><option value="sobhi">إسلام صبحي</option><option value="kurdi">رعد الكردي</option></optgroup><optgroup label="آية بآية (للحفظ)"><option value="ar.alafasy">مشاري العفاسي</option><option value="ar.mahermuaiqly">ماهر المعيقلي</option><option value="ar.abdulbasitmurattal">عبد الباسط عبد الصمد</option><option value="ar.husary">محمود خليل الحصري</option><option value="ar.minshawi">محمد صديق المنشاوي</option><option value="ar.saoodshuraym">سعود الشريم</option><option value="ar.abdurrahmaansudais">عبد الرحمن السديس</option><option value="ar.hudhaify">علي الحذيفي</option><option value="ar.ahmedajamy">أحمد العجمي</option><option value="ar.muhammadjibreel">محمد جبريل</option></optgroup></select></div>
+<p class="msg" id="am" hidden></p>
+<audio id="au" controls preload="none"></audio>
+<div class="pb" id="pb" hidden>
+<button class="chip" id="pp"><svg class="i"><use href="#i-play"/></svg><span>تشغيل</span></button>
+<button class="chip" id="ap">الآية السابقة</button>
+<button class="chip" id="an">الآية التالية</button>
+<label class="opt" for="rp"><span>كرّر الآية</span><select id="rp"><option>1</option><option>3</option><option>5</option><option>10</option></select></label>
+<label class="opt" for="hd"><span>أخفِ النص للحفظ</span><input type="checkbox" id="hd" class="sw" role="switch"></label>
+<label class="opt" for="lp"><span>حلقة الحفظ (من–إلى)</span><input type="checkbox" id="lp" class="sw" role="switch"></label>
+<label class="opt" for="rf"><span>من آية</span><select id="rf"></select></label>
+<label class="opt" for="rt"><span>إلى آية</span><select id="rt"></select></label>
+<button class="chip" id="mr"><svg class="i"><use href="#i-check"/></svg><span>علّم المدى كمحفوظ</span></button>
+</div>
+<div class="pb" id="px">
+<label class="opt" for="spd"><span>السرعة</span><select id="spd"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label>
+<label class="opt" for="slt"><span>مؤقت النوم</span><select id="slt"><option value="0">إيقاف</option><option value="15">15 دقيقة</option><option value="30">30 دقيقة</option><option value="60">ساعة</option></select></label>
+</div>
+</div>
+
+<div class="sheet" id="sh" role="dialog" aria-label="تفسير الآية" hidden>
+<div class="sh-h"><b id="sa"></b><select id="tf" aria-label="التفسير"><option value="ar.muyassar">التفسير الميسر</option><option value="ar.jalalayn">تفسير الجلالين</option></select><button class="ic" id="sx" aria-label="إغلاق"><svg class="i"><use href="#i-x"/></svg></button></div>
+<p class="aytxt" id="st"></p>
+<p class="tfs" id="sf"></p>
+<div class="nb"><textarea id="nt" rows="2" maxlength="300" placeholder="ملاحظتي على هذه الآية…" aria-label="ملاحظة على الآية"></textarea><span class="er" id="nerr" role="alert"></span></div>
+<div class="sh-b"><button class="nv" id="sv"><svg class="i"><use href="#i-bookmark"/></svg><span>حفظ مكاني هنا</span></button><button class="nv" id="sl"><svg class="i"><use href="#i-headphones"/></svg><span>استمع من هنا</span></button><button class="nv" id="sp"><svg class="i"><use href="#i-cr"/></svg><span>الآية السابقة</span></button><button class="nv" id="sn"><svg class="i"><use href="#i-cl"/></svg><span>الآية التالية</span></button><button class="nv" id="mm"><svg class="i"><use href="#i-check"/></svg><span>حفظتها</span></button><button class="nv" id="fv"><svg class="i"><use href="#i-star"/></svg><span>أضف للمفضلة</span></button><button class="nv" id="ns"><svg class="i"><use href="#i-pen"/></svg><span>حفظ الملاحظة</span></button><button class="nv" id="cp"><svg class="i"><use href="#i-copy"/></svg><span>نسخ الآية</span></button><button class="nv" id="shr"><svg class="i"><use href="#i-share"/></svg><span>مشاركة</span></button></div>
+</div>
+
+<div class="ov clear" id="sd" role="dialog" aria-labelledby="sdt" hidden>
+<div class="dbox sbox">
+<div class="sh-h"><b id="sdt">الإعدادات</b><button class="ic" id="sdx" aria-label="إغلاق"><svg class="i"><use href="#i-x"/></svg></button></div>
+<p class="dlb">المظهر</p>
+<div class="themes" id="ths">
+<button class="th" data-th="auto" aria-pressed="false"><i style="background:linear-gradient(90deg,#f2f6f3 50%,#0e1814 50%)"></i>تلقائي</button>
+<button class="th" data-th="light" aria-pressed="false"><i style="background:#f2f6f3"></i>فاتح</button>
+<button class="th" data-th="sepia" aria-pressed="false"><i style="background:#f4ecd8"></i>ورقي</button>
+<button class="th" data-th="dark" aria-pressed="false"><i style="background:#0e1814"></i>داكن</button>
+<button class="th" data-th="black" aria-pressed="false"><i style="background:#000"></i>أسود</button>
+</div>
+<label class="srow"><span>السطوع</span><input type="range" id="sbr" min="30" max="100" step="1"><output id="sbo"></output></label>
+<label class="srow"><span>تدفئة الألوان</span><input type="range" id="swm" min="0" max="100" step="1"><output id="swo"></output></label>
+<label class="srow"><span>حجم الخط</span><input type="range" id="sfs" min="22" max="56" step="1"><output id="sfo"></output></label>
+<label class="srow"><span>تباعد الأسطر</span><input type="range" id="slh" min="1.8" max="3.4" step="0.1"><output id="slo"></output></label>
+<label class="srow"><span>إبقاء الشاشة مضاءة</span><input type="checkbox" id="swk" class="sw" role="switch"></label>
+<label class="srow"><span>إظهار أرقام الآيات</span><input type="checkbox" id="svn" class="sw" role="switch"></label>
+<button class="nv" id="srs">إعادة الضبط</button>
+</div></div>
+
+<div class="ov" id="ptd" role="dialog" aria-modal="true" aria-labelledby="ptt" hidden>
+<div class="dbox">
+<div class="sh-h"><b id="ptt"><svg class="i"><use href="#i-clock"/></svg> مواقيت الصلاة</b><button class="ic" id="ptx" aria-label="إغلاق"><svg class="i"><use href="#i-x"/></svg></button></div>
+<p class="pnx" id="pnx"></p>
+<ul id="ptl" class="ptl"></ul>
+<label class="hrow"><span>المدينة</span><select id="pcity"></select></label>
+<button class="nv" id="pgps" style="width:100%"><svg class="i"><use href="#i-pin"/></svg><span>استخدم موقعي الحالي</span></button>
+<label class="hrow"><span>طريقة الحساب</span><select id="pmeth"></select></label>
+<label class="hrow"><span>العصر</span><select id="pasr"><option value="1">المالكي والشافعي والحنبلي</option><option value="2">الحنفي</option></select></label>
+<label class="hrow"><span>تنبيه عند دخول الوقت</span><input type="checkbox" id="pon" class="sw" role="switch"></label>
+<button class="nv" id="pex" hidden style="width:100%;margin-top:6px">السماح بالتنبيه في الوقت الدقيق</button>
+<p class="sub" id="pmsg"></p>
+</div></div>
+
+<div class="ov" id="rvw" role="dialog" aria-modal="true" aria-labelledby="rvt" hidden>
+<div class="dbox rbox">
+<div class="sh-h"><b id="rvt">مراجعة الحفظ</b><span class="rvr" id="rvn"></span><button class="ic" id="rvx" aria-label="إغلاق"><svg class="i"><use href="#i-x"/></svg></button></div>
+<div class="pbar mini"><i id="rvp" style="width:0"></i></div>
+<div id="rvb"></div>
+</div></div>
+
+<div class="ov" id="dd" role="dialog" aria-modal="true" aria-labelledby="dtt" hidden>
+<div class="dbox">
+<div class="sh-h"><b id="dtt"><svg class="i"><use href="#i-heart"/></svg> أدعيتي</b><button class="ic" id="dx" aria-label="إغلاق"><svg class="i"><use href="#i-x"/></svg></button></div>
+<label class="dlb" for="dt" id="dlb">اكتب الدعاء الذي تريده</label>
+<textarea id="dt" rows="4" maxlength="500" dir="auto" placeholder="اللهم ..." aria-describedby="dc derr"></textarea>
+<div class="dm"><span id="dc">0 / 500</span><span id="derr" class="er" role="alert"></span></div>
+<div class="sh-b"><button class="nv" id="ds">حفظ الدعاء</button><button class="nv" id="dcx" hidden>إلغاء التعديل</button></div>
+<p class="dh">أدعيتي المحفوظة</p>
+<ul id="dl"></ul>
+<p class="msg" id="de">لا توجد أدعية محفوظة بعد.</p>
+</div></div>
+
+<div id="dim" aria-hidden="true"></div><div id="warm" aria-hidden="true"></div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "appId": "com.mushaf.app",
+  "appName": "المصحف الشريف",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "backgroundColor": "#0b2a1f",
+  "android": {
+    "allowMixedContent": false
+  }
+}
