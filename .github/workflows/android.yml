@@ -28,11 +28,21 @@ jobs:
           distribution: temurin
           java-version: 17
       - uses: gradle/actions/setup-gradle@v4
-      - run: npm install
+      - name: Install dependencies (with retry)
+        run: |
+          for i in 1 2 3; do
+            npm install --no-audit --no-fund && break
+            echo "npm install failed (attempt $i), retrying..."; sleep 20
+            [ "$i" = 3 ] && exit 1
+          done
       - run: npx cap add android
       - name: Generate app icons
         continue-on-error: true
-        run: npx capacitor-assets generate --android --assetPath assets
+        run: |
+          for i in 1 2 3; do
+            npm install --no-save --no-audit --no-fund @capacitor/assets && npx capacitor-assets generate --android --assetPath assets && break
+            echo "icons attempt $i failed, retrying..."; sleep 20
+          done
       - run: npx cap sync android
       - name: Version
         run: |
