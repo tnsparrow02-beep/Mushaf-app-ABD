@@ -1,3 +1,16 @@
+(function(){
+  const skip=/play\(\)|AbortError|NotAllowedError|NotSupportedError|Failed to fetch|NetworkError|offline|Load failed|ResizeObserver/i;
+  const show=m=>{try{
+    if(skip.test(m))return;
+    let b=document.getElementById("errb");
+    if(!b){b=document.createElement("div");b.id="errb";b.setAttribute("role","alert");
+      b.style.cssText="position:fixed;top:0;left:0;right:0;z-index:99;background:#b3261e;color:#fff;padding:8px 12px;font:12px/1.5 monospace;direction:ltr;text-align:left;white-space:pre-wrap;max-height:35vh;overflow:auto";
+      b.onclick=()=>b.remove();document.body.append(b)}
+    b.textContent="ERROR: "+m+"\n(tap to close)";
+  }catch(e){}};
+  window.addEventListener("error",e=>show((e.message||"")+" @ "+String(e.filename||"").split("/").pop()+":"+e.lineno));
+  window.addEventListener("unhandledrejection",e=>show("promise: "+((e.reason&&(e.reason.stack||e.reason.message))||e.reason)));
+})();
 const N="الفاتحة,البقرة,آل عمران,النساء,المائدة,الأنعام,الأعراف,الأنفال,التوبة,يونس,هود,يوسف,الرعد,إبراهيم,الحجر,النحل,الإسراء,الكهف,مريم,طه,الأنبياء,الحج,المؤمنون,النور,الفرقان,الشعراء,النمل,القصص,العنكبوت,الروم,لقمان,السجدة,الأحزاب,سبأ,فاطر,يس,الصافات,ص,الزمر,غافر,فصلت,الشورى,الزخرف,الدخان,الجاثية,الأحقاف,محمد,الفتح,الحجرات,ق,الذاريات,الطور,النجم,القمر,الرحمن,الواقعة,الحديد,المجادلة,الحشر,الممتحنة,الصف,الجمعة,المنافقون,التغابن,الطلاق,التحريم,الملك,القلم,الحاقة,المعارج,نوح,الجن,المزمل,المدثر,القيامة,الإنسان,المرسلات,النبأ,النازعات,عبس,التكوير,الانفطار,المطففين,الانشقاق,البروج,الطارق,الأعلى,الغاشية,الفجر,البلد,الشمس,الليل,الضحى,الشرح,التين,العلق,القدر,البينة,الزلزلة,العاديات,القارعة,التكاثر,العصر,الهمزة,الفيل,قريش,الماعون,الكوثر,الكافرون,النصر,المسد,الإخلاص,الفلق,الناس".split(",");
 const C=[7,286,200,176,120,165,206,75,129,109,123,111,43,52,99,128,111,110,98,135,112,78,118,64,77,227,93,88,69,60,34,30,73,54,45,83,182,88,75,85,54,53,89,59,37,35,38,29,18,45,60,49,62,55,78,96,29,22,24,13,14,11,11,18,12,12,30,52,52,44,28,28,20,56,40,31,50,40,46,42,29,19,36,25,22,17,19,26,30,20,15,21,11,8,8,19,5,8,8,11,11,8,3,9,5,4,7,3,6,3,5,4,5,6];
 const T="mddddmmddmmmdmmmmmmmmdmdmmmmmmmmdmmmmmmmmmmmmmmmmmdddmmmmmmdmdddddddddddmmmmmmmmmmdmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmddmmmmmmmmmmdmmmm".slice(0,0)+"mddddmmddm"+"mmdmmmmmmm"+"mdmdmmmmmm"+"mmdmmmmmmm"+"mmmmmmdddm"+"mmmmdmdddd"+"ddddddmmmm"+"mmmmmdmmmm"+"mmmmmmmmmm"+"mmmmmmmddm"+"mmmmmmmmmd"+"mmmm";
@@ -497,7 +510,8 @@ $("lib").addEventListener("click",async e=>{
   }
 });
 addEventListener("hashchange",()=>{if(location.hash!==cH)route()});
-if("serviceWorker"in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register("sw.js").catch(()=>{});
+if("serviceWorker"in navigator&&/^https?:$/.test(location.protocol)&&!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform()))navigator.serviceWorker.register("sw.js").catch(()=>{});
+else if("serviceWorker"in navigator&&window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform()){try{navigator.serviceWorker.getRegistrations().then(r=>r.forEach(x=>x.unregister())).catch(()=>{})}catch(e){}}
 
 /* ===== v3: page-by-page reader, panels, settings ===== */
 let PG=0,NP=1,PW=0,AP=[],goLast=false,lastDrag=0;const PAD=22;
@@ -625,10 +639,12 @@ let DS=jget("ds");
 if(!DS||DS.d!==dayN()||!Array.isArray(DS.r)||!Number.isInteger(DS.m))DS=freshDS();
 let DSet=new Set(DS.r.filter(k=>typeof k==="string"&&okKey(k)));
 function rollDay(){if(DS.d!==dayN()){DS=freshDS();DSet=new Set()}}
+var dsT=0;
+document.addEventListener("visibilitychange",()=>{if(document.hidden&&dsT){clearTimeout(dsT);dsT=0;jset("ds",DS)}});
 function trackRead(){
   rollDay();let ch=false;
   AP.forEach((p,i)=>{if(p===PG){const k=cur+":"+(i+1);if(!DSet.has(k)){DSet.add(k);ch=true}}});
-  if(ch){DS.r=[...DSet];jset("ds",DS)}
+  if(ch){DS.r=[...DSet];clearTimeout(dsT);dsT=setTimeout(()=>jset("ds",DS),1500)}
 }
 function setMem(s,a,on){
   const k=s+":"+a;
@@ -783,13 +799,14 @@ async function setFull(v){
 /* first run: download Quran + tafsir in the background so everything works offline */
 async function autoDl(){
   try{
-    if(!navigator.onLine||store.get("adl")==="1")return;
+    const cn=navigator.connection;
+    if(!navigator.onLine||store.get("adl")==="1"||(cn&&(cn.saveData||cn.type==="cellular")))return;
     const q=await idb.get("q");
     if(!(Array.isArray(q)&&q.length===114))await dlAll({textContent:""});
     store.set("adl","1");
   }catch(e){}
 }
-setTimeout(autoDl,20000);
+setTimeout(function t(){const r=$("read");if(r&&!r.hidden){setTimeout(t,60000);return}autoDl()},90000);
 
 /* ===== v5: separate listen/memorize players, media notification, prayer times ===== */
 const NATIVE=!!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform());
