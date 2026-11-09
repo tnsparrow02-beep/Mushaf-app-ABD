@@ -810,8 +810,9 @@ setTimeout(function t(){const r=$("read");if(r&&!r.hidden){setTimeout(t,60000);r
 
 /* ===== v5: separate listen/memorize players, media notification, prayer times ===== */
 const NATIVE=!!(window.Capacitor&&Capacitor.isNativePlatform&&Capacitor.isNativePlatform());
-const LN=NATIVE?Capacitor.registerPlugin("LocalNotifications"):null;
-const MC=(NATIVE&&Capacitor.isPluginAvailable&&Capacitor.isPluginAvailable("MediaCtl"))?Capacitor.registerPlugin("MediaCtl"):null;
+const capPlug=n=>{try{if(typeof Capacitor.registerPlugin==="function")return Capacitor.registerPlugin(n)}catch(e){}return(Capacitor.Plugins&&Capacitor.Plugins[n])||null};
+const LN=NATIVE?capPlug("LocalNotifications"):null;
+const MC=(NATIVE&&Capacitor.isPluginAvailable&&Capacitor.isPluginAvailable("MediaCtl"))?capPlug("MediaCtl"):null;
 let notifAsked=false;
 async function notifPerm(){
   if(!LN)return false;
@@ -860,7 +861,7 @@ function mcAct(a){
   else if(a==="prev"){if(AM==="l"){if(cur>1)autoNav(cur-1)}else $("ap").click()}
   else if(a==="stop"){au.pause();stopApi();mcStop()}
 }
-if(MC)MC.addListener("action",e=>mcAct(e.action));
+if(MC){try{MC.addListener("action",e=>mcAct(e.action))}catch(e){}}
 /* background: hand the full-surah mp3 to the native player so it never cuts */
 function natGoAy(){
   if(!MC||natOn||AM!=="h"||!playing||!ix||!U.length)return;
